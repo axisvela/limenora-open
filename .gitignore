@@ -1,0 +1,7 @@
+dist/*.exe
+dist/*.tar.gz
+dist/*.zip
+node_modules/
+__pycache__/
+*.log
+.DS_Store
