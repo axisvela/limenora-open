@@ -1,0 +1,111 @@
+name: release-binaries
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      core_ref:
+        description: 'LIMENORA core git ref to build (default: master)'
+        required: false
+        default: 'master'
+      version:
+        description: 'Release version for manual run (e.g. v0.1.0)'
+        required: false
+        default: 'v0.1.0'
+
+permissions:
+  contents: write
+
+env:
+  CORE_REF: ${{ github.event.inputs.core_ref || 'master' }}
+
+jobs:
+  build:
+    name: build-${{ matrix.target.goos }}-${{ matrix.target.goarch }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - { goos: linux, goarch: amd64, ext: '' }
+          - { goos: linux, goarch: arm64, ext: '' }
+          - { goos: windows, goarch: amd64, ext: .exe }
+          - { goos: windows, goarch: arm64, ext: .exe }
+          - { goos: darwin, goarch: amd64, ext: '' }
+          - { goos: darwin, goarch: arm64, ext: '' }
+    steps:
+      - name: Checkout LIMENORA core
+        uses: actions/checkout@v4
+        with:
+          repository: axisrobo/limenora
+          ref: ${{ env.CORE_REF }}
+          path: core
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: core/go.mod
+
+      - name: Compute version
+        id: ver
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "value=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=${{ github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build binaries
+        working-directory: core
+        env:
+          GOOS: ${{ matrix.target.goos }}
+          GOARCH: ${{ matrix.target.goarch }}
+          CGO_ENABLED: '0'
+        run: |
+          mkdir -p ../dist
+          go build -trimpath -ldflags "-s -w" -o ../dist/limenora-edge${{ matrix.target.ext }} ./cmd/client-gateway
+          go build -trimpath -ldflags "-s -w" -o ../dist/limenora-enterprise${{ matrix.target.ext }} ./cmd/server-gateway
+          go build -trimpath -ldflags "-s -w" -o ../dist/limenora-gateway${{ matrix.target.ext }} ./cmd/gateway
+
+      - name: Archive
+        working-directory: dist
+        run: |
+          tar -czf limenora-${{ steps.ver.outputs.value }}-${{ matrix.target.goos }}-${{ matrix.target.goarch }}.tar.gz \
+            limenora-edge${{ matrix.target.ext }} \
+            limenora-enterprise${{ matrix.target.ext }} \
+            limenora-gateway${{ matrix.target.ext }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: limenora-${{ matrix.target.goos }}-${{ matrix.target.goarch }}
+          path: dist/limenora-*.tar.gz
+
+  release:
+    name: publish-release
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Generate checksums
+        working-directory: artifacts
+        run: |
+          find . -name '*.tar.gz' -exec sha256sum {} \; > SHA256SUMS
+          cat SHA256SUMS
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: LIMENORA ${{ github.ref_name }}
+          generate_release_notes: true
+          files: |
+            artifacts/**/*.tar.gz
+            artifacts/**/SHA256SUMS
