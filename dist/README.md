@@ -7,7 +7,7 @@ Linux, macOS, and Windows on amd64 and arm64.
 
 The binaries are built from the AGPL-3.0
 [limenora](https://github.com/axisrobo/limenora) core runtime and published here
-for convenience. They remain subject to the AGPL-3.0 license. The v0.1.0-v0.4.0
+for convenience. They remain subject to the AGPL-3.0 license. The v0.1.0-v0.5.0
 archives were built locally with Go 1.25.5; future releases are produced by the
 CI pipeline in the core repository.
 
@@ -20,12 +20,12 @@ CI pipeline in the core repository.
 
 ## Download
 
-Latest release: **v0.4.0** (Wave 2 complete — Enterprise Ingress & Scale)
+Latest release: **v0.5.0** (Wave 3 — Federation & Ecosystem)
 
 ```sh
 # example for linux-amd64
 curl -L -o limenora.tgz \
-  https://github.com/axisrobo/limenora-open/releases/download/v0.4.0/limenora-v0.4.0-linux-amd64.tar.gz
+  https://github.com/axisrobo/limenora-open/releases/download/v0.5.0/limenora-v0.5.0-linux-amd64.tar.gz
 tar -xzf limenora.tgz
 ```
 
