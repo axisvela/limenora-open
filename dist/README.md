@@ -76,7 +76,7 @@ Requires Go 1.25.5+.
 
 ## Release workflow
 
-Pushing a `v*` tag to this repository triggers
-[`.github/workflows/release-binaries.yml`](../.github/workflows/release-binaries.yml),
-which builds the core runtime and creates a GitHub Release with the binaries and
-checksums.
+Pushing a `v*` tag to the [limenora](https://github.com/axisrobo/limenora) core
+repository triggers `.github/workflows/release-binaries.yml` there, which builds
+the runtime and publishes the binaries and checksums to this repository's
+[Releases](https://github.com/axisrobo/limenora-open/releases) page.
