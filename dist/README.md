@@ -7,9 +7,9 @@ Linux, macOS, and Windows on amd64 and arm64.
 
 The binaries are built from the AGPL-3.0
 [limenora](https://github.com/axisrobo/limenora) core runtime and published here
-for convenience. They remain subject to the AGPL-3.0 license. The v0.1.0
-archives were built locally with Go 1.25.5; future releases are produced by the
-CI pipeline in the core repository.
+for convenience. They remain subject to the AGPL-3.0 license. The v0.1.0 and
+v0.2.0 archives were built locally with Go 1.25.5; future releases are produced
+by the CI pipeline in the core repository.
 
 ## Contents of each archive
 
@@ -19,10 +19,12 @@ CI pipeline in the core repository.
 
 ## Download
 
+Latest release: **v0.2.0** (Wave 1 — governed egress MVP)
+
 ```sh
 # example for linux-amd64
 curl -L -o limenora.tgz \
-  https://github.com/axisrobo/limenora-open/releases/download/v0.1.0/limenora-v0.1.0-linux-amd64.tar.gz
+  https://github.com/axisrobo/limenora-open/releases/download/v0.2.0/limenora-v0.2.0-linux-amd64.tar.gz
 tar -xzf limenora.tgz
 ```
 
