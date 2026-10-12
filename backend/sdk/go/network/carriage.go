@@ -1,4 +1,4 @@
-package sdk
+package network
 
 // Federated presentation client contract (EIDOVELA-open FP-1), shared by the
 // LIMENORA gateway and its clients so a client binds the same target the
