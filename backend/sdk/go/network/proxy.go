@@ -39,6 +39,8 @@ type ProxyEgress struct {
 	client           *http.Client
 	tokens           AgentTokenSource
 	maxResponseBytes int64
+	carriage         Carriage
+	proofs           ProofCarrier
 }
 
 // ProxyOption configures a ProxyEgress.
@@ -47,6 +49,23 @@ type ProxyOption func(*proxyOptions)
 type proxyOptions struct {
 	tlsConfig        *tls.Config
 	maxResponseBytes int64
+	carriage         Carriage
+	proofs           ProofCarrier
+}
+
+// WithProofCarrier attaches an FP-1 presentation-proof carrier. The carrier's
+// resource proof is bound to the intercepted inner request (request_header) or
+// the CONNECT authority (connect_header) according to WithCarriage; the
+// introspection proof travels on the same request. A carrier error fails the
+// request closed. No proof is attached when the carriage is disabled.
+func WithProofCarrier(c ProofCarrier) ProxyOption {
+	return func(o *proxyOptions) { o.proofs = c }
+}
+
+// WithCarriage selects where the presentation proof is carried. The default is
+// CarriageRequestHeader. It MUST match the gateway's configured carriage.
+func WithCarriage(c Carriage) ProxyOption {
+	return func(o *proxyOptions) { o.carriage = c }
 }
 
 // WithTLSConfig sets the TLS configuration used for HTTPS destinations reached
@@ -100,6 +119,9 @@ func NewProxyEgress(proxyBase string, tokens AgentTokenSource, opts ...ProxyOpti
 	if cfg.maxResponseBytes <= 0 {
 		cfg.maxResponseBytes = defaultMaxResponseBytes
 	}
+	if cfg.carriage == "" {
+		cfg.carriage = CarriageRequestHeader
+	}
 
 	transport := &http.Transport{
 		Proxy:           http.ProxyURL(u),
@@ -113,12 +135,24 @@ func NewProxyEgress(proxyBase string, tokens AgentTokenSource, opts ...ProxyOpti
 	}
 	// CONNECT path (HTTPS destinations): the credential is presented only on the
 	// proxy-bound CONNECT request, never on the tunneled origin request.
-	transport.GetProxyConnectHeader = func(ctx context.Context, _ *url.URL, _ string) (http.Header, error) {
+	transport.GetProxyConnectHeader = func(ctx context.Context, _ *url.URL, target string) (http.Header, error) {
 		tok, ok := proxyTokenFromContext(ctx)
 		if !ok || tok == "" {
 			return nil, ErrNoAgentToken
 		}
-		return http.Header{"Proxy-Authorization": []string{"Bearer " + tok}}, nil
+		header := http.Header{"Proxy-Authorization": []string{"Bearer " + tok}}
+		// connect_header carriage: the resource + introspection proofs bind the
+		// CONNECT authority. The gateway validates them on the CONNECT request.
+		if cfg.proofs != nil && cfg.carriage == CarriageConnectHeader {
+			proofHeaders, err := cfg.proofs.ProofHeaders("CONNECT", "https://"+target, tok)
+			if err != nil {
+				return nil, err
+			}
+			for k, v := range proofHeaders {
+				header.Set(k, v)
+			}
+		}
+		return header, nil
 	}
 
 	client := &http.Client{
@@ -143,6 +177,8 @@ func NewProxyEgress(proxyBase string, tokens AgentTokenSource, opts ...ProxyOpti
 		tokens:           tokens,
 		maxResponseBytes: cfg.maxResponseBytes,
 		client:           client,
+		carriage:         cfg.carriage,
+		proofs:           cfg.proofs,
 	}, nil
 }
 
@@ -197,6 +233,18 @@ func (p *ProxyEgress) Do(ctx context.Context, req GatewayRequest) (*GatewayResul
 	// any caller-supplied value on both paths; the transport sets its own
 	// credential for the proxy (HTTP) or the CONNECT request (HTTPS) only.
 	httpReq.Header.Del("Proxy-Authorization")
+	// request_header carriage: the resource + introspection proofs bind the
+	// intercepted inner request (method + full URI). The gateway's MITM reads and
+	// strips them before forwarding upstream.
+	if p.proofs != nil && p.carriage == CarriageRequestHeader {
+		proofHeaders, err := p.proofs.ProofHeaders(req.Method, req.URL, tok)
+		if err != nil {
+			return nil, fmt.Errorf("network: proxy egress: presentation proof: %w", err)
+		}
+		for k, v := range proofHeaders {
+			httpReq.Header.Set(k, v)
+		}
+	}
 	if req.Ctx.TraceID != "" {
 		httpReq.Header.Set("X-Trace-ID", req.Ctx.TraceID)
 	}
