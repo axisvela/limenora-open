@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "limenora-sdk"
+version = "2.3.0"
+description = "Apache-2.0 SDK for the LIMENORA Enterprise Agent Integration Gateway"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.9"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["limenora_sdk*"]

@@ -5,3 +5,5 @@ node_modules/
 __pycache__/
 *.log
 .DS_Store
+target/
+*.egg-info/
