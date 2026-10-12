@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://limenora.dev/schemas/inject/rule.schema.json",
+  "title": "LIMENORA Injection Rule",
+  "description": "Secret or credential injection rule applied to an intercepted request. Shared between the Go and Rust gateways.",
+  "type": "object",
+  "required": ["source", "location", "name"],
+  "properties": {
+    "id": { "type": "string" },
+    "source": {
+      "type": "string",
+      "enum": ["secret", "app_connection", "vault"],
+      "description": "Where the injected value originates."
+    },
+    "location": {
+      "type": "string",
+      "enum": ["header", "query", "body"],
+      "description": "Where the value is injected."
+    },
+    "name": {
+      "type": "string",
+      "description": "Header name, query parameter name, or body key."
+    },
+    "value": {
+      "type": "string",
+      "description": "Literal value; omitted when a credential binding ref is used."
+    },
+    "host_pattern": { "type": "string" },
+    "path_pattern": { "type": "string" },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "refresh_token": {
+      "type": "string",
+      "description": "OAuth refresh token material when present."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "OAuth token expiry."
+    },
+    "oauth_provider": { "type": "string" },
+    "credential_binding_ref": {
+      "type": "string",
+      "description": "Reference to a boundary-resolved credential; rules carrying this ref are stripped of secret material."
+    }
+  },
+  "additionalProperties": false
+}

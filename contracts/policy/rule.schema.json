@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://limenora.dev/schemas/policy/rule.schema.json",
+  "title": "LIMENORA Policy Rule",
+  "description": "A policy rule evaluated against a CONNECT or proxy request. Shared between the Go and Rust gateways.",
+  "type": "object",
+  "required": ["id", "name", "host_pattern", "path_pattern", "action"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "host_pattern": {
+      "type": "string",
+      "description": "Host match pattern; supports wildcard prefixes."
+    },
+    "path_pattern": {
+      "type": "string",
+      "description": "Path match pattern; supports wildcard suffixes."
+    },
+    "method": { "type": "string" },
+    "action": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["block", "rate_limit", "manual_approval", "allow"]
+        },
+        "rule_id": { "type": "string" },
+        "max_requests": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Rate limit window capacity."
+        },
+        "window_secs": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Rate limit window length in seconds."
+        }
+      },
+      "additionalProperties": false
+    },
+    "conditions": {
+      "type": "object",
+      "description": "Behavioral conditions keyed by condition name (body_contains, header_equals, ...)."
+    }
+  },
+  "additionalProperties": false
+}

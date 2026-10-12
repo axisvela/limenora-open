@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Shared Go/Rust parity fixtures for nested JSON path injection (Go setByPath / Rust set_by_path). Each case: input body, dotted path, string value; expected_success and the expected resulting body (semantically compared).",
+  "cases": [
+    { "name": "sets_root_field", "body": { "b": 1 }, "path": "b", "value": "x", "expected_success": true, "expected": { "b": "x" } },
+    { "name": "sets_nested_object_field", "body": { "a": { "b": 1 } }, "path": "a.b", "value": "x", "expected_success": true, "expected": { "a": { "b": "x" } } },
+    { "name": "auto_vivifies_nested_objects", "body": { "a": {} }, "path": "a.b.c", "value": "x", "expected_success": true, "expected": { "a": { "b": { "c": "x" } } } },
+    { "name": "missing_root_key_auto_vivifies", "body": {}, "path": "a.b.c", "value": "x", "expected_success": true, "expected": { "a": { "b": { "c": "x" } } } },
+    { "name": "indexes_existing_array_element", "body": { "a": [ { "b": 1 } ] }, "path": "a.0.b", "value": "x", "expected_success": true, "expected": { "a": [ { "b": "x" } ] } },
+    { "name": "vivifies_null_intermediate_to_object", "body": { "a": null }, "path": "a.b.c", "value": "x", "expected_success": true, "expected": { "a": { "b": { "c": "x" } } } },
+    { "name": "negative_numeric_segment_fails", "body": { "a": {} }, "path": "a.-1", "value": "x", "expected_success": false, "expected": { "a": {} } },
+    { "name": "numeric_segment_against_object_fails", "body": { "a": { "b": 1 } }, "path": "a.0", "value": "x", "expected_success": false, "expected": { "a": { "b": 1 } } }
+  ]
+}

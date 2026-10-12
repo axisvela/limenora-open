@@ -4,7 +4,7 @@
 package sdk
 
 import (
-	"github.com/axisrobo/LIMENORA/backend/pkg/limenora"
+	"github.com/axisrobo/LIMENORA/pkg/limenora"
 )
 
 // Version is the SDK version.

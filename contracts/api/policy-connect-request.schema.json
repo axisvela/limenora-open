@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://limenora.dev/schemas/api/policy-connect-request.schema.json",
+  "title": "LIMENORA CONNECT Policy Request",
+  "description": "Client gateway request to the server policy service for a CONNECT decision. Shared contract between the Go and Rust gateways.",
+  "type": "object",
+  "required": ["agent_token", "host"],  "properties": {
+    "agent_token": {
+      "type": "string",
+      "description": "Agent identity token presented by the client gateway."
+    },
+    "host": {
+      "type": "string",
+      "description": "Destination host for the CONNECT tunnel."
+    },
+    "port": {
+      "type": "string",
+      "description": "Destination port, when known."
+    },
+    "scheme": {
+      "type": "string",
+      "description": "Request scheme (http, https)."
+    },
+    "method": {
+      "type": "string",
+      "description": "HTTP method when the decision is for a proxy request."
+    },
+    "path": {
+      "type": "string",
+      "description": "Request path when the decision is for a proxy request."
+    },
+    "headers": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Request headers relevant to the decision."
+    },
+    "connection_id": {
+      "type": "string",
+      "description": "Connection identifier for audit correlation."
+    },
+    "gateway_role": {
+      "type": "string",
+      "enum": ["edge", "enterprise"],
+      "description": "Role of the requesting gateway."
+    },
+    "gateway_version": {
+      "type": "string",
+      "description": "Version of the requesting gateway."
+    },
+    "agent_ref": {
+      "type": "string",
+      "description": "Resolved agent binding reference (NOMIVELA agent_ref); takes precedence over agent_token for the server resolver."
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "External agent identity identifier carried by the resolved binding."
+    },
+    "agent_class": {
+      "type": "string",
+      "description": "NOMIVELA agent form (for example organizational, embedded, service)."
+    },
+    "identity_type": {
+      "type": "string",
+      "enum": ["interactive", "autonomous", "digitalEmployee"],
+      "description": "Agent Identity type carried by the resolved binding."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Project scope of the resolved binding."
+    },
+    "tenant_id": {
+      "type": "string",
+      "description": "Tenant scope of the resolved binding."
+    },
+    "organization_id": {
+      "type": "string",
+      "description": "Organization scope of the resolved binding. Falls back to tenant_id for organization-scoped policy when empty."
+    },
+    "audience": {
+      "type": "string",
+      "description": "Credential audience of the resolved binding."
+    }
+  },
+  "additionalProperties": false
+}

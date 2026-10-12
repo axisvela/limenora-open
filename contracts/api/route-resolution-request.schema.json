@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://limenora.dev/schemas/api/route-resolution-request.schema.json",
+  "title": "LIMENORA Route Resolution Request",
+  "description": "PRAXOVELA pre-flight request to resolve the route, policy decision, and effective class profile for a governed outbound call.",
+  "type": "object",
+  "required": ["agent_token", "host"],
+  "properties": {
+    "agent_token": { "type": "string", "description": "Agent identity token presented by PRAXOVELA." },
+    "agent_ref": { "type": "string", "description": "Optional NOMIVELA agent reference for correlation." },
+    "host": { "type": "string" },
+    "port": { "type": "string" },
+    "scheme": { "type": "string", "enum": ["http", "https"] },
+    "method": { "type": "string" },
+    "path": { "type": "string" },
+    "headers": { "type": "object", "additionalProperties": { "type": "string" } },
+    "connection_id": { "type": "string" },
+    "gateway_role": { "type": "string", "enum": ["edge", "enterprise"] },
+    "gateway_version": { "type": "string" }
+  },
+  "additionalProperties": false
+}

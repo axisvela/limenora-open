@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://limenora.dev/schemas/approval/pending.schema.json",
+  "title": "LIMENORA Pending Approval",
+  "description": "A pending manual approval request surfaced for a human reviewer. Shared between the Go and Rust gateways.",
+  "type": "object",
+  "required": ["id", "organization_id", "project_id", "method", "scheme", "host", "path", "created_at", "expires_at"],
+  "properties": {
+    "id": { "type": "string" },
+    "organization_id": { "type": "string" },
+    "project_id": { "type": "string" },
+    "agent_id": { "type": "string" },
+    "agent_name": { "type": "string" },
+    "agent_identifier": { "type": "string" },
+    "method": { "type": "string" },
+    "scheme": { "type": "string" },
+    "host": { "type": "string" },
+    "path": { "type": "string" },
+    "headers": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "body_preview": {
+      "type": "string",
+      "description": "Bounded preview of the request body."
+    },
+    "created_at": {
+      "type": "integer",
+      "description": "Unix timestamp of creation."
+    },
+    "expires_at": {
+      "type": "integer",
+      "description": "Unix timestamp when the approval expires."
+    }
+  },
+  "additionalProperties": false
+}

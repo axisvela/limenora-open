@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://limenora.dev/schemas/api/policy-connect-response.schema.json",
+  "title": "LIMENORA CONNECT Policy Response",
+  "description": "Server policy service response to a CONNECT decision request. Shared contract between the Go and Rust gateways.",
+  "type": "object",
+  "required": ["decision"],
+  "properties": {
+    "decision": {
+      "type": "object",
+      "required": ["intercept"],
+      "properties": {
+        "intercept": {
+          "type": "boolean",
+          "description": "Whether the connection should be intercepted (MITM)."
+        },
+        "intercept_reason": {
+          "type": "string",
+          "enum": ["provider_match", "policy_rule", "injection", "app_connection", "llm_host"],
+          "description": "Why MITM interception was selected."
+        },
+        "tenant_id": { "type": "string" },
+        "project_id": { "type": "string" },
+        "organization_id": { "type": "string" },
+        "agent_id": { "type": "string" },
+        "agent_name": { "type": "string" },
+        "agent_identifier": { "type": "string" },
+        "access_restricted": {
+          "type": "boolean",
+          "description": "Subscription or access restriction enforced; the gateway denies such connections."
+        },
+        "policy_mode": {
+          "type": "string",
+          "enum": ["allow", "deny"],
+          "description": "Gateway policy mode when no rule matches."
+        },
+        "policy_rules": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/policy_rule" }
+        },
+        "injection_rules": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/injection_rule" }
+        },
+        "provider_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "app_connection_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "body_transform": {
+          "type": "string",
+          "description": "Request body transform to apply."
+        },
+        "cache_scope": {
+          "type": "object",
+          "properties": {
+            "tenant_id": { "type": "string" },
+            "project_id": { "type": "string" },
+            "organization_id": { "type": "string" },
+            "agent_id": { "type": "string" },
+            "hosts": { "type": "array", "items": { "type": "string" } },
+            "provider_ids": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "cache_revision": {
+          "type": "string",
+          "description": "Content revision for stale-cache invalidation."
+        }
+      },
+      "additionalProperties": false
+    },
+    "revision": {
+      "type": "string",
+      "description": "Content version of the source rules/secrets/connections."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "policy_rule": {
+      "type": "object",
+      "required": ["id", "name", "host_pattern", "path_pattern", "action"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "host_pattern": { "type": "string" },
+        "path_pattern": { "type": "string" },
+        "method": { "type": "string" },
+        "action": {
+          "type": "object",
+          "required": ["type"],
+          "properties": {
+            "type": { "type": "string", "enum": ["block", "rate_limit", "manual_approval", "allow"] },
+            "rule_id": { "type": "string" },
+            "max_requests": { "type": "integer", "minimum": 0 },
+            "window_secs": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "conditions": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "injection_rule": {
+      "type": "object",
+      "required": ["source", "location", "name"],
+      "properties": {
+        "id": { "type": "string" },
+        "source": { "type": "string", "enum": ["secret", "app_connection", "vault"] },
+        "location": { "type": "string", "enum": ["header", "query", "body"] },
+        "name": { "type": "string" },
+        "value": { "type": "string" },
+        "host_pattern": { "type": "string" },
+        "path_pattern": { "type": "string" },
+        "metadata": { "type": "object", "additionalProperties": { "type": "string" } },
+        "refresh_token": { "type": "string" },
+        "expires_at": { "type": "string", "format": "date-time" },
+        "oauth_provider": { "type": "string" },
+        "credential_binding_ref": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

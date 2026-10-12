@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://limenora.dev/schemas/agent/agent-binding.schema.json",
+  "title": "LIMENORA Agent Binding",
+  "description": "Maps a LIMENORA-validated agent service credential to an external agent identity (NOMIVELA agent_ref) and its form (agent_class). Shared contract between the Go and Rust gateways and PRAXOVELA. identity_mode=native means LIMENORA validates its own token; identity_mode=federated means LIMENORA verifies an external assertion (EIDOVELA PoP token).",
+  "type": "object",
+  "required": ["agent_ref", "agent_class", "identity_type", "identity_mode", "authority"],
+  "properties": {
+    "agent_ref": {
+      "type": "string",
+      "pattern": "^agent_[A-Za-z0-9_-]+$",
+      "description": "NOMIVELA agent reference (identity authority is NOMIVELA)."
+    },
+    "agent_class": {
+      "type": "string",
+      "enum": ["embedded", "organizational", "user", "assetTwin", "personalTwin", "twin", "service", "ephemeral", "simulation"],
+      "description": "NOMIVELA agentClass (ADR 0005). Selects the gateway/scope profile."
+    },
+    "identity_type": {
+      "type": "string",
+      "enum": ["interactive", "autonomous", "digitalEmployee"],
+      "description": "Agent Identity type (AIOS / AEGIVELA section 3.1). With agent_class it selects the credential context and approval default; refines (never widens) the agent_class profile."
+    },
+    "identity_mode": {
+      "type": "string",
+      "enum": ["native", "federated"],
+      "description": "Credential validation mode."
+    },
+    "authority": {
+      "type": "string",
+      "description": "Issuer of the credential: 'limenora' for native; 'eidovela' or 'nomivela' for federated."
+    },
+    "agent_epoch": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "NOMIVELA business epoch bound at credential issue time (epoch 1 is the first bound value)."
+    },
+    "identity_epoch": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "NOMIVELA identity epoch bound at credential issue time (epoch 1 is the first bound value)."
+    },
+    "carrier_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Opaque carrier references (application:, device:, service:)."
+    },
+    "sponsor_ref": {
+      "type": "string",
+      "description": "Sponsoring entity reference."
+    },
+    "owner_ref": {
+      "type": "string",
+      "description": "Owning entity reference."
+    }
+  },
+  "additionalProperties": false
+}

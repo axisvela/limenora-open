@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://limenora.dev/schemas/api/route-resolution-response.schema.json",
+  "title": "LIMENORA Route Resolution Response",
+  "description": "Decision, route, and effective class profile returned to PRAXOVELA for a governed outbound call.",
+  "type": "object",
+  "required": ["decision"],
+  "properties": {
+    "decision": { "type": "string", "enum": ["allow", "block", "manual", "rate"] },
+    "reason": { "type": "string" },
+    "route": {
+      "type": "object",
+      "properties": {
+        "upstream": { "type": "string" },
+        "mitm": { "type": "boolean" },
+        "tunnel": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "injection_plan_ref": {
+      "type": "string",
+      "description": "Opaque handle to the credential injection plan resolved at enforcement time."
+    },
+    "class_profile": {
+      "type": "object",
+      "properties": {
+        "agent_class": { "type": "string" },
+        "identity_type": { "type": "string", "enum": ["interactive", "autonomous", "digitalEmployee"] },
+        "gateway": { "type": "string", "enum": ["edge", "enterprise"] },
+        "policy_scope": { "type": "string" },
+        "credential_scope": { "type": "string" },
+        "credential_context": { "type": "string", "enum": ["user-bound", "agent-scoped", "dual"] }
+      },
+      "additionalProperties": false
+    },
+    "approval": {
+      "type": "object",
+      "properties": {
+        "mode": { "type": "string", "enum": ["interactive", "async", "auto"] },
+        "approval_id": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "retry_after_ms": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": false
+}

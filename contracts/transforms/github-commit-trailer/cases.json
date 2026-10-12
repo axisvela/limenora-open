@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Shared Go/Rust parity fixtures for the GitHub commit-trailer body transform. Each case is an input request body plus agent identity; expected is the resulting body (expected == body for no-op cases).",
+  "cases": [
+    {
+      "name": "injects_prefix_and_trailer",
+      "body": { "message": "Create file", "content": "SGVsbG8=" },
+      "agent_name": "deploy-bot",
+      "project_id": "proj_abc123",
+      "expected": { "message": "[deploy-bot] Create file\n\nOn-Behalf-Of: deploy-bot[onecli] (proj_abc123)", "content": "SGVsbG8=" }
+    },
+    {
+      "name": "keeps_existing_prefix",
+      "body": { "message": "[deploy-bot] Update file", "content": "bmV3" },
+      "agent_name": "deploy-bot",
+      "project_id": "proj_abc123",
+      "expected": { "message": "[deploy-bot] Update file\n\nOn-Behalf-Of: deploy-bot[onecli] (proj_abc123)", "content": "bmV3" }
+    },
+    {
+      "name": "skips_when_trailer_present",
+      "body": { "message": "Create\n\nOn-Behalf-Of: someone", "content": "SGVsbG8=" },
+      "agent_name": "deploy-bot",
+      "project_id": "proj_abc123",
+      "expected": { "message": "Create\n\nOn-Behalf-Of: someone", "content": "SGVsbG8=" }
+    },
+    {
+      "name": "skips_empty_message",
+      "body": { "message": "", "content": "SGVsbG8=" },
+      "agent_name": "deploy-bot",
+      "project_id": "proj_abc123",
+      "expected": { "message": "", "content": "SGVsbG8=" }
+    },
+    {
+      "name": "skips_empty_agent_name",
+      "body": { "message": "Create file", "content": "SGVsbG8=" },
+      "agent_name": "",
+      "project_id": "proj_abc123",
+      "expected": { "message": "Create file", "content": "SGVsbG8=" }
+    },
+    {
+      "name": "skips_empty_project_id",
+      "body": { "message": "Create file", "content": "SGVsbG8=" },
+      "agent_name": "deploy-bot",
+      "project_id": "",
+      "expected": { "message": "Create file", "content": "SGVsbG8=" }
+    }
+  ]
+}
