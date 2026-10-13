@@ -7,7 +7,7 @@
  */
 
 /** Public SDK version. Tracks the core module tag. */
-export const VERSION = "2.3.0";
+export const VERSION = "2.4.0";
 
 /** A gateway deployment role. */
 export type Role = "edge" | "enterprise" | "control";

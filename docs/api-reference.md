@@ -2,14 +2,14 @@
 
 LIMENORA exposes the same HTTP control surface from both the Go runtime and the
 Rust reference implementation. Machine-readable contracts live in `contracts/`
-(JSON Schema) and are the single source of truth. Current version: `v2.3.0`.
+(JSON Schema) and are the single source of truth. Current version: `v2.4.0`.
 
 ## Health
 
 | Route | Method | Description |
 | --- | --- | --- |
 | `/healthz` | GET | Bare `200 OK` (liveness). |
-| `/v1/health` | GET | `{"status":"ok","version":"v2.3.0"}` (readiness + version). |
+| `/v1/health` | GET | `{"status":"ok","version":"v2.4.0"}` (readiness + version). |
 
 ## Identity
 

@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.4.0
+
+- Synchronize the SDK version surfaces with the core tag `v2.4.0` (Go
+  `backend/sdk/go`, Python `limenora_sdk`, Rust `backend/sdk/rust`, TypeScript
+  `backend/sdk/typescript`).
+- Core `v2.4.0` adds the AEGIVELA Decision Service (PEP) integration
+  (`GATEWAY_AEGIVELA_*`, `pkg/limenora/pep`); no SDK wire-surface change.
+- Note: federated-presentation (FP-1) remains gateway-side in core; its public
+  schemas graduate here when the frozen cross-repo contract is published.
+
 ## 2.3.0
 
 - Mirror the core `contracts/` into `contracts/`: agent binding

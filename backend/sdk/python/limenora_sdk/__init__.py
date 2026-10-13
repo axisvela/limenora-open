@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 #: Public SDK version. Tracks the core module tag.
-VERSION = "2.3.0"
+VERSION = "2.4.0"
 
 
 class Role(str, Enum):

@@ -1,6 +1,6 @@
 {
   "name": "limenora-sdk",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Apache-2.0 SDK for the LIMENORA Enterprise Agent Integration Gateway",
   "license": "Apache-2.0",
   "type": "module",

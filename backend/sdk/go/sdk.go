@@ -10,7 +10,7 @@ package sdk
 import "github.com/axisrobo/LIMENORA-open/sdk/go/network"
 
 // Version is the SDK version.
-const Version = "2.3.0"
+const Version = "2.4.0"
 
 // FP-1 presentation carriage contract.
 type (
