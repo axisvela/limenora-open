@@ -10,6 +10,18 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 
+from .policy import (
+    CONNECT_PATH,
+    REVISION_PATH,
+    CacheScope,
+    ConnectDecision,
+    ConnectRequest,
+    ConnectResponse,
+    InjectionRule,
+    PolicyClient,
+    PolicyRule,
+)
+
 #: Public SDK version. Tracks the core module tag.
 VERSION = "2.4.0"
 
@@ -109,4 +121,13 @@ __all__ = [
     "DEFAULT_RESOURCE_PROOF_SCHEME",
     "DEFAULT_INTROSPECTION_PROOF_HEADER",
     "DEFAULT_INTROSPECTION_PROOF_SCHEME",
+    "CONNECT_PATH",
+    "REVISION_PATH",
+    "ConnectRequest",
+    "ConnectResponse",
+    "ConnectDecision",
+    "PolicyRule",
+    "InjectionRule",
+    "CacheScope",
+    "PolicyClient",
 ]

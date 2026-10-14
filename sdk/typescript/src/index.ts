@@ -72,3 +72,6 @@ export const DEFAULT_RESOURCE_PROOF_HEADER = "DPoP";
 export const DEFAULT_RESOURCE_PROOF_SCHEME = "DPoP";
 export const DEFAULT_INTROSPECTION_PROOF_HEADER = "DPoP-Introspection";
 export const DEFAULT_INTROSPECTION_PROOF_SCHEME = "DPoP";
+
+export * from "./policy";
+
