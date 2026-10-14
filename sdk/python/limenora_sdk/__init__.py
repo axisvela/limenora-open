@@ -21,6 +21,19 @@ from .policy import (
     PolicyClient,
     PolicyRule,
 )
+from .network import (
+    CARRIAGE_CONNECT_HEADER,
+    CARRIAGE_DISABLED,
+    CARRIAGE_REQUEST_HEADER,
+    AgentTokenSource,
+    GatewayRequest,
+    GatewayResult,
+    NoAgentToken,
+    ProofCarrier,
+    ProxyEgress,
+    StaticTokenSource,
+    metadata_denied,
+)
 
 #: Public SDK version. Tracks the core module tag.
 VERSION = "2.4.0"
@@ -130,4 +143,15 @@ __all__ = [
     "InjectionRule",
     "CacheScope",
     "PolicyClient",
+    "CARRIAGE_REQUEST_HEADER",
+    "CARRIAGE_CONNECT_HEADER",
+    "CARRIAGE_DISABLED",
+    "NoAgentToken",
+    "metadata_denied",
+    "AgentTokenSource",
+    "StaticTokenSource",
+    "ProofCarrier",
+    "GatewayRequest",
+    "GatewayResult",
+    "ProxyEgress",
 ]
