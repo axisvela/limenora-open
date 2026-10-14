@@ -74,4 +74,5 @@ export const DEFAULT_INTROSPECTION_PROOF_HEADER = "DPoP-Introspection";
 export const DEFAULT_INTROSPECTION_PROOF_SCHEME = "DPoP";
 
 export * from "./policy";
+export * from "./network";
 
