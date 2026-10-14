@@ -7,7 +7,10 @@
 // re-exports it for convenience.
 package sdk
 
-import "github.com/axisrobo/LIMENORA-open/sdk/go/network"
+import (
+	"github.com/axisrobo/LIMENORA-open/sdk/go/network"
+	"github.com/axisrobo/LIMENORA-open/sdk/go/policy"
+)
 
 // Version is the SDK version.
 const Version = "2.4.0"
@@ -56,4 +59,15 @@ var (
 	WithCarriage         = network.WithCarriage
 	NewStaticTokenSource = network.NewStaticTokenSource
 	ErrNoAgentToken      = network.ErrNoAgentToken
+
+	// NewPolicyClient builds the LIMENORA policy-plane client.
+	NewPolicyClient = policy.NewClient
+)
+
+// Policy plane.
+type (
+	PolicyClient    = policy.Client
+	ConnectRequest  = policy.ConnectRequest
+	ConnectResponse = policy.ConnectResponse
+	ConnectDecision = policy.ConnectDecision
 )
