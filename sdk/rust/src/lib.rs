@@ -5,6 +5,7 @@
 //! gateway so a client binds the same target the gateway verifies).
 
 pub mod policy;
+pub mod network;
 
 /// Public SDK version. It tracks the core module tag.
 pub const VERSION: &str = "2.4.0";
