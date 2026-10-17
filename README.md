@@ -64,3 +64,10 @@ LIMENORA is delivered as one open-core runtime plus two companion repositories:
 
 This repository is **Apache-2.0**. The core runtime is AGPL-3.0 in
 [limenora](https://github.com/axisrobo/limenora). See [LICENSE](./LICENSE).
+
+## Core status (recorded here; no external links)
+
+The LIMENORA core at 2.5.0 adds a PostgreSQL credential resolver and evidence
+redaction: telemetry evidence, the request log and the durable spool scrub any
+verbatim occurrence of a materialized injected credential, on top of the
+keyword / query redaction. The gateway and telemetry suites pass.

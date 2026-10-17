@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.5.0
+
+- Synchronize the SDK version surfaces with the core tag v2.5.0 (PostgreSQL
+  credential resolver + evidence redaction). No SDK wire-surface change.
+
 ## 2.4.0
 
 - Synchronize the SDK version surfaces with the core tag `v2.4.0` (Go
