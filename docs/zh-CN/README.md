@@ -10,9 +10,9 @@ LIMENORA 由一个核心运行时和两个配套仓库组成：
 
 | 仓库 | License | 用途 |
 |---|---|---|
-| [limenora](https://github.com/axisrobo/limenora) | AGPL-3.0 | **核心运行时**：Edge Gateway / Enterprise Gateway 数据平面、TLS MITM、策略执行点、凭据注入、证据。 |
-| [limenora-open](https://github.com/axisrobo/limenora-open)（本仓库） | Apache-2.0 | **对外入口**：SDK、示例、API 规范、二进制发布说明、文档。 |
-| [limenora-ee](https://github.com/axisrobo/limenora-ee) | 企业 License | **企业版**：HA 集群、联邦、高级凭据代理、证据留存、合规包、Admin Console。 |
+| [limenora](https://github.com/axisvela/limenora) | AGPL-3.0 | **核心运行时**：Edge Gateway / Enterprise Gateway 数据平面、TLS MITM、策略执行点、凭据注入、证据。 |
+| [limenora-open](https://github.com/axisvela/limenora-open)（本仓库） | Apache-2.0 | **对外入口**：SDK、示例、API 规范、二进制发布说明、文档。 |
+| [limenora-ee](https://github.com/axisvela/limenora-ee) | 企业 License | **企业版**：HA 集群、联邦、高级凭据代理、证据留存、合规包、Admin Console。 |
 
 ## 部署角色
 
@@ -44,4 +44,4 @@ LIMENORA 由一个核心运行时和两个配套仓库组成：
 
 ## License
 
-本仓库为 Apache-2.0。核心运行时见 [limenora](https://github.com/axisrobo/limenora) 的 AGPL-3.0。
+本仓库为 Apache-2.0。核心运行时见 [limenora](https://github.com/axisvela/limenora) 的 AGPL-3.0。

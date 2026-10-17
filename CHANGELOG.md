@@ -24,7 +24,7 @@
   project/tenant/organization scope, audience), plus the existing policy,
   inject, approval and transform contracts.
 - Go SDK (`backend/sdk/go`): fix the core import path to
-  `github.com/axisrobo/LIMENORA/pkg/limenora` and pin the core dependency to
+  `github.com/axisvela/LIMENORA/pkg/limenora` and pin the core dependency to
   `v2.3.0`.
 - Note: federated-presentation (FP-1) is gateway-side in core; its public
   schemas graduate here when the frozen cross-repo contract is published.

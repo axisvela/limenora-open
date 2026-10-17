@@ -5,9 +5,9 @@ LIMENORA-open welcomes contributions to SDKs, examples, and documentation.
 ## License boundaries
 
 - SDKs, examples, and docs in this repository are **Apache-2.0**.
-- Runtime changes belong in the [LIMENORA](https://github.com/axisrobo/LIMENORA)
+- Runtime changes belong in the [LIMENORA](https://github.com/axisvela/LIMENORA)
   core repository (**AGPL-3.0**).
-- Enterprise features belong in [LIMENORA-ee](https://github.com/axisrobo/LIMENORA-ee).
+- Enterprise features belong in [LIMENORA-ee](https://github.com/axisvela/LIMENORA-ee).
 
 ## Getting started
 

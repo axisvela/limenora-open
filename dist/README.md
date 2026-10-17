@@ -1,12 +1,12 @@
 # LIMENORA Binaries
 
 Prebuilt LIMENORA runtime binaries are published on the
-[Releases](https://github.com/axisrobo/limenora-open/releases) page of this
+[Releases](https://github.com/axisvela/limenora-open/releases) page of this
 repository. Each release tag (`v0.1.0`, `v1.0.0`, ...) contains archives for
 Linux, macOS, and Windows on amd64 and arm64.
 
 The binaries are built from the AGPL-3.0
-[limenora](https://github.com/axisrobo/limenora) core runtime and published here
+[limenora](https://github.com/axisvela/limenora) core runtime and published here
 for convenience. They remain subject to the AGPL-3.0 license. Releases are
 produced by `scripts/release.ps1` in the core repository (locally with Go
 1.25.5 until the CI billing issue is resolved).
@@ -25,7 +25,7 @@ Latest release: **v0.8.0** (reproducible release pipeline)
 ```sh
 # example for linux-amd64
 curl -L -o limenora.tgz \
-  https://github.com/axisrobo/limenora-open/releases/download/v0.8.0/limenora-v0.8.0-linux-amd64.tar.gz
+  https://github.com/axisvela/limenora-open/releases/download/v0.8.0/limenora-v0.8.0-linux-amd64.tar.gz
 tar -xzf limenora.tgz
 ```
 
@@ -62,7 +62,7 @@ curl http://127.0.0.1:10255/v1/health
 To build locally from the core repository:
 
 ```sh
-git clone https://github.com/axisrobo/limenora
+git clone https://github.com/axisvela/limenora
 cd limenora
 go build -o limenora-edge ./cmd/client-gateway
 go build -o limenora-enterprise ./cmd/server-gateway
@@ -81,7 +81,7 @@ Requires Go 1.25.5+.
 
 ## Release workflow
 
-Pushing a `v*` tag to the [limenora](https://github.com/axisrobo/limenora) core
+Pushing a `v*` tag to the [limenora](https://github.com/axisvela/limenora) core
 repository triggers `.github/workflows/release-binaries.yml` there, which builds
 the runtime and publishes the binaries and checksums to this repository's
-[Releases](https://github.com/axisrobo/limenora-open/releases) page.
+[Releases](https://github.com/axisvela/limenora-open/releases) page.

@@ -17,7 +17,7 @@
   - Metadata deny (`denyMetadataDestination`) travels with the client.
   - The FP-1 carriage constants/types come from the SDK root package (`sdk.Carriage`, `sdk.TunnelPolicy`, `sdk.Default*`) — do not re-declare.
 - `sdk.go` (root) re-exports the network surface for convenience.
-- **PRAXOVELA adoption:** depend on `github.com/axisrobo/limenora-open/sdk/go` (add `replace => ../../../LIMENORA-open`, mirroring the EIDOVELA-open replace); delete its bespoke `network.ProxyEgress`/contract and its duplicated `eidovela.ProofCarriage`/`ResourceProofConfig` (use `sdk.Carriage`/`sdk.TunnelPolicy`/`sdk.Default*`); keep `eidovela.SignDPoP`/`IntrospectionProof`.
+- **PRAXOVELA adoption:** depend on `github.com/axisvela/limenora-open/sdk/go` (add `replace => ../../../LIMENORA-open`, mirroring the EIDOVELA-open replace); delete its bespoke `network.ProxyEgress`/contract and its duplicated `eidovela.ProofCarriage`/`ResourceProofConfig` (use `sdk.Carriage`/`sdk.TunnelPolicy`/`sdk.Default*`); keep `eidovela.SignDPoP`/`IntrospectionProof`.
 
 ## Tasks
 

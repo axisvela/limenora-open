@@ -14,9 +14,9 @@ LIMENORA is delivered as one open-core runtime plus two companion repositories:
 
 | Repository | License | What it is |
 |---|---|---|
-| [**limenora**](https://github.com/axisrobo/limenora) | AGPL-3.0 | **Core runtime** — Edge / Enterprise Gateway data planes, TLS MITM, policy enforcement, credential injection, evidence. |
-| [**limenora-open**](https://github.com/axisrobo/limenora-open) (this repo) | Apache-2.0 | **Public entry point** — SDKs, examples, API specifications, binary release info, documentation. |
-| [**limenora-ee**](https://github.com/axisrobo/limenora-ee) | Enterprise License | **Enterprise Edition** — HA clustering, federation, advanced credential brokerage, evidence retention, compliance packs, Admin Console. |
+| [**limenora**](https://github.com/axisvela/limenora) | AGPL-3.0 | **Core runtime** — Edge / Enterprise Gateway data planes, TLS MITM, policy enforcement, credential injection, evidence. |
+| [**limenora-open**](https://github.com/axisvela/limenora-open) (this repo) | Apache-2.0 | **Public entry point** — SDKs, examples, API specifications, binary release info, documentation. |
+| [**limenora-ee**](https://github.com/axisvela/limenora-ee) | Enterprise License | **Enterprise Edition** — HA clustering, federation, advanced credential brokerage, evidence retention, compliance packs, Admin Console. |
 
 ## Deployment Roles
 
@@ -63,7 +63,7 @@ LIMENORA is delivered as one open-core runtime plus two companion repositories:
 ## License
 
 This repository is **Apache-2.0**. The core runtime is AGPL-3.0 in
-[limenora](https://github.com/axisrobo/limenora). See [LICENSE](./LICENSE).
+[limenora](https://github.com/axisvela/limenora). See [LICENSE](./LICENSE).
 
 ## Core status (recorded here; no external links)
 
