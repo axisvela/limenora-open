@@ -8,8 +8,8 @@
 package sdk
 
 import (
-	"github.com/axisvela/LIMENORA-open/sdk/go/network"
-	"github.com/axisvela/LIMENORA-open/sdk/go/policy"
+	"github.com/axisvela/LIMENORA-open/sdk/go/v3/network"
+	"github.com/axisvela/LIMENORA-open/sdk/go/v3/policy"
 )
 
 // Version is the SDK version.
