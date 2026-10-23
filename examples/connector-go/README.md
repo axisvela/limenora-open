@@ -5,7 +5,7 @@ This example shows how to build a Connector in Go using the LIMENORA public SDK.
 ```go
 import (
 	"github.com/axisvela/LIMENORA/backend/pkg/limenora"
-	"github.com/axisvela/LIMENORA-open/sdk/go/sdk" // placeholder import
+	"github.com/axisvela/limenora-open/sdk/go/sdk" // placeholder import
 )
 ```
 
